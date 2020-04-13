@@ -42,7 +42,8 @@
     html,body {
         font-family: 'Courier New', Courier, monospace;
         background: #282a36;
-        color: #f8f8f2;
+        color: #f8f8f2;    
+        margin-bottom: 2.5rem;
     }
     a {
         color: #ffb86c;
@@ -59,7 +60,12 @@
     }
     section {
         margin-top: 1.5%;
-        margin-left: .5%;
+        margin-left: 0.5%;
+    }
+    section[class="tags"]>div{
+        padding-left: 40px;
+        color: #50fa7b;
+        width: 60%;
     }
     p small{
         color: #6272a4;
@@ -85,12 +91,12 @@
 </head>
 
 <body>
-    <h2>$ MACARSE, Christian Ryan</h2>
+    <h2>$ MACARSE, Christian Ryan R.</h2>
 
     <section>
         <h3>About:</h3>
         <p>
-            A Software developer aspirant.
+            A Software Developer aspirant.
         </p>
     </section>
 
@@ -119,16 +125,16 @@
                 <a href="/portfolio">Website Portfolio</a>
             </li>
             <li>
-                <a href="/portfolio">WBP CRM</a>
+                <a href="https://wxzjnduuib.herokuapp.com/client/browse-locations">WBP CRM</a>
             </li>
             <li>
                 <a href="/portfolio">XtendOps Full Scale Company Rest API</a>
             </li>
             <li>
-                <a href="/portfolio">Flyspaces</a>
+                <a href="https://www.cafahd.com/">CAFA HD - College Admissions & Financial Aid Help Desk</a>
             </li>
             <li>
-                <a href="/portfolio">CAFA HD - College Admissions & Financial Aid Help Desk</a>
+                <a href="https://flyspaces.com/">Flyspaces</a>
             </li>
             <li>
                 <a href="/portfolio">Central Philippine University Smart Touch Information Kiosk</a>
@@ -137,16 +143,16 @@
                 <a href="/portfolio">Iloilo CDRRMO Geographic Information System</a>
             </li>
             <li>
-                <a href="/portfolio">Waffle Time</a>
+                <a href="http://waffletime.com/">Waffle Time</a>
             </li>
             <li>
-                <a href="/portfolio">Coffeebreak</a>
+                <a href="http://coffeebreak.ph/">Coffeebreak</a>
             </li>
             <li>
                 <a href="/portfolio">Quidan Kaisahan</a>
             </li>
             <li>
-                <a href="/portfolio">Mango Magic</a>
+                <a href="http://mangomagic.ph/">Mango Magic</a>
             </li>
             <li>
                 <a href="https://github.com/crrmacarse">More..</a>
@@ -158,7 +164,7 @@
         <h3>Get in Touch:</h3>
         <ul>
             <li>
-                <a href="tel:+6399159039234">Send an email</a>
+                <a href="mailto:crrmacarse@gmail.com?" title="Are you planning to hire me :O">Send an email</a>
             </li>
             <li>
                 <a href="tel:+6399159039234">Direct Call</a>
@@ -181,21 +187,36 @@
         </ul>
     </section>
 
+    <section class="tags">
+        <h3>Tags:</h3>
+        <div>
+            <small>
+                node, javascript, typescript, c#, vb, python, rust, php, git, tfs, mysql, mssql, mongodb, firebase,
+                nosql, .net, webpack, react, redux, bootstrap, tailwindcss, adonisjs, jest, vue, agular, express, apache,
+                docker, k8s, bitbucket pipelines, github actions, ci/cd, pm2, npm, mvc, mern, rest api, javascript spa,
+                microservices, cloud, network infrastructure, & linux
+            </small>
+        </div>
+    </section>
+
     <section>
         <h3>Others:</h3>
         <ul>
             <li>
-                <a href="https://docs.google.com/document/d/1HOZNeObFb-aLNcEhRIkXHkv1iaP5CtYcpIgsaLcqP3o/edit#heading=h.d5ishdcz0bz">Resume</a>
+                <a href="/resume">Resume</a>
             </li>
             <li>
-                <a href="/portfolio">Blog</a>
+                <a href="/personal">Blog</a>
+            </li>
+            <li>
+                <a href="/personal">Snake Game(@TODO)</a>
             </li>
         </ul>
     </section>
 
     <section>
         <h3>Random Quotes:</h3>
-        <blockquote cite="kanye">
+        <blockquote>
             <p id="quote" />
             <footer id="author" />
         </blockquote>
@@ -235,7 +256,7 @@
             setInterval(() => {
                 const rand = Math.floor(Math.random() * data.length);
                 renderToDom(data[rand]);
-            }, 11000);
+            }, 15000);
         });
     });
    
