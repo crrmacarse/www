@@ -5,6 +5,7 @@ import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { loggerMiddleware } from 'middleware/logger.middleware';
 import { HttpExceptionFilter } from 'exception/http-exception.filter'
+import { ValidationPipe } from 'pipes/validation.pipe';
 
 const PORT = process.env.PORT || 1111;
 
@@ -40,6 +41,11 @@ async function bootstrap() {
    * Simple logging middleware
    */
   app.use(loggerMiddleware);
+
+  /**
+   * Inject validation
+   */
+  app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(PORT);
 }

@@ -1,17 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController, AppService } from './app';
-import { APP_FILTER } from '@nestjs/core';
-import { HttpExceptionFilter } from './exception/http-exception.filter'
+import { FeatureModule } from './feature.module';
 import { ResourceModule } from './resources';
 
 @Module({
-  imports: [ResourceModule],
+  imports: [FeatureModule, ResourceModule],
   controllers: [AppController],
   providers: [
-    {
-      provide: APP_FILTER,
-      useClass: HttpExceptionFilter,
-    },
     AppService,
   ],
 })
