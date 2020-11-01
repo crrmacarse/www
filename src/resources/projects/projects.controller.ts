@@ -1,20 +1,23 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
-import { Observable, of } from 'rxjs';
 import * as ROUTES from 'constants/routes';
 import { ListAllEntities } from 'constants/dto';
 import { CreateProjectDto, UpdateProjectDto } from './projects.dto';
+import { ProjectsService } from './projects.service';
+import { Project } from './projects.interface';
 
 @Controller(ROUTES.PROJECTS)
 export class ProjectsController {
+    constructor(private projectService: ProjectsService) {}
+
     @Get()
-    findAll(@Query() query: ListAllEntities): Observable<any[]> {
+    async findAll(@Query() query: ListAllEntities): Promise<Project[]> {
         console.log(`This action returns all projects (limit: ${query.limit} items)`)        
 
-        return of([]);
+        return this.projectService.findAll();
     }
 
     @Get(':id')
-    findOne(@Param('id') id: number) {
+    async findOne(@Param('id') id: number) {
         return `Return project with id ${id}`;
     }
 
@@ -22,18 +25,18 @@ export class ProjectsController {
     async create(@Body() createProjectDto: CreateProjectDto) {
         console.log(createProjectDto)
 
-        return 'Create a project'
+        this.projectService.create(createProjectDto);
     }
 
     @Put(':id')
-    update(@Param('id') id: number, @Body() updateProjectDto: UpdateProjectDto) {
+    async update(@Param('id') id: number, @Body() updateProjectDto: UpdateProjectDto) {
         console.log(updateProjectDto)
 
         return 'Update a project'
     }
 
     @Delete(':id')
-    delete(@Param('id') id: string) {
+    async delete(@Param('id') id: string) {
         return `Delete this project ${id}`
     }
 }

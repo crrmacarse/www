@@ -6,12 +6,13 @@ import { ResourceModule } from './resources';
 
 @Module({
   imports: [ResourceModule],
-  controllers: [AppController, ],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
     },
-    AppService],
+    AppService,
+  ],
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,10 +1,7 @@
 import { Module } from '@nestjs/common'
-import { ProjectsController } from './projects/projects.controller';
-import { ProjectsService } from './projects/projects.service'
+import { ProjectModule } from './projects/projects.module'
 
 @Module({
-    imports: [],
-    controllers: [ProjectsController],
-    providers: [ProjectsService],
+    imports: [ProjectModule],
 })
 export class ResourceModule {}
