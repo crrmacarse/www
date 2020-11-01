@@ -21,7 +21,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
             path: request.url,
         }
     
-        console.error('ERR', errorObj)
+        console.error('ERR', { ...errorObj, stack: exception.stack })
     
         response
             .status(status)
