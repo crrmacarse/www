@@ -1,12 +1,14 @@
 import { NestFactory, Reflector } from '@nestjs/core';
-import { AppModule } from './app.module';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
+import { RATE_LIMIT_WINDOW_MS, RATE_LIMIT_MAX } from 'constants/default';
 import { loggerMiddleware } from 'middleware/logger.middleware';
 import { HttpExceptionFilter } from 'exception/http-exception.filter'
 import { ValidationPipe } from 'pipes/validation.pipe';
 import { RolesGuard } from 'guards/roles.guard'
+import { TimeoutInterceptor } from 'interceptors/timeout.interceptor'
+import { AppModule } from './app.module';
 
 const PORT = process.env.PORT || 1111;
 
@@ -18,8 +20,8 @@ async function bootstrap() {
   /** Brunte force protection */
   app.use(
     rateLimit({
-      windowMs: 15 * 60 * 1000, // 15 minutes
-      max: 100, // limit each IP to 100 requests per windowMs
+      windowMs: RATE_LIMIT_WINDOW_MS, // 15 minutes
+      max: RATE_LIMIT_MAX, // limit each IP to 100 requests per windowMs
     }),
   );
 
@@ -52,6 +54,11 @@ async function bootstrap() {
    * Role Proection
    */
   app.useGlobalGuards(new RolesGuard(new Reflector()));
+
+  /**
+   * Global Interceptors
+   */
+  app.useGlobalInterceptors(new TimeoutInterceptor());
 
   await app.listen(PORT);
 }
