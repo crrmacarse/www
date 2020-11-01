@@ -4,6 +4,7 @@ import * as compression from 'compression';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { loggerMiddleware } from './middleware/logger.middleware';
+import { HttpExceptionFilter } from './exception/http-exception.filter'
 
 const PORT = process.env.PORT || 1111;
 
@@ -29,6 +30,11 @@ async function bootstrap() {
    * Apply gzip compression
    */
   app.use(compression())
+
+  /**
+   * Apply custom filter
+   */
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   /**
    * Simple logging middleware
