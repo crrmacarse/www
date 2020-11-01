@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
-import * as ROUTES from '../../constants/routes';
-import { CreateProjectDto, UpdateProjectDto } from './projects.dto'
-import { ListAllEntities } from '../../constants/dto';
+import * as ROUTES from 'constants/routes';
+import { ListAllEntities } from 'constants/dto';
+import { CreateProjectDto, UpdateProjectDto } from './projects.dto';
 
 @Controller(ROUTES.PROJECTS)
 export class ProjectsController {
