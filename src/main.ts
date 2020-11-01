@@ -48,7 +48,9 @@ async function bootstrap() {
   /**
    * Simple logging middleware
    */
-  app.use(loggerMiddleware);
+  if (appConfig.env === 'production') {
+    app.use(loggerMiddleware);
+  }
 
   /**
    * Inject validation

@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
+export type appConfigEnvType = 'production' | 'development' | 'testing';
+
 @Injectable()
 export class AppConfigService {
   constructor(private configService: ConfigService) {}
@@ -9,8 +11,8 @@ export class AppConfigService {
     return this.configService.get<string>('app.name');
   }
 
-  get env(): string {
-    return this.configService.get<string>('app.env');
+  get env(): appConfigEnvType {
+    return this.configService.get<appConfigEnvType>('app.env');
   }
   
   get url(): string {
