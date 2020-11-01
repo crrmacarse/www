@@ -1,0 +1,28 @@
+name: CI
+
+on: [pull_request]
+
+jobs:
+  test:
+    name: CI checks
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.0.0
+
+    - name: Use node 12
+      uses: actions/setup-node@v1
+      with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org
+
+    - name: Installing..
+      run: npm install
+
+    - name: Running lint..
+      run: npm run lint
+
+    - name: Running testing..
+      run: npm run test
+
+    - name: Building...
+      run: npm run build
