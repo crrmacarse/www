@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/
 import * as ROUTES from 'constants/routes';
 import { ListAllEntities } from 'constants/dto';
 import { ParseParamIntPipe } from 'pipes/parse-param-int.pipe'
+import { Roles } from 'decorators/roles.decorator';
 import { CreateProjectDto, UpdateProjectDto } from './projects.dto';
 import { ProjectsService } from './projects.service';
 import { Project } from './projects.interface';
@@ -23,6 +24,7 @@ export class ProjectsController {
     }
 
     @Post()
+    @Roles('admin')
     async create(@Body() createProjectDto: CreateProjectDto) {
         console.log(createProjectDto)
 

@@ -1,4 +1,4 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
@@ -6,6 +6,7 @@ import * as rateLimit from 'express-rate-limit';
 import { loggerMiddleware } from 'middleware/logger.middleware';
 import { HttpExceptionFilter } from 'exception/http-exception.filter'
 import { ValidationPipe } from 'pipes/validation.pipe';
+import { RolesGuard } from 'guards/roles.guard'
 
 const PORT = process.env.PORT || 1111;
 
@@ -46,6 +47,11 @@ async function bootstrap() {
    * Inject validation
    */
   app.useGlobalPipes(new ValidationPipe());
+
+  /**
+   * Role Proection
+   */
+  app.useGlobalGuards(new RolesGuard(new Reflector()));
 
   await app.listen(PORT);
 }
