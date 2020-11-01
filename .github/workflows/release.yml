@@ -17,4 +17,4 @@ jobs:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
-        script: source /user/crrmacarse/www/api/bin/deploy.sh $GITHUB_SHA
+        script: source /home/crrmacarse/www/api/bin/deploy.sh $GITHUB_SHA
