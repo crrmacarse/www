@@ -9,11 +9,16 @@ import { ValidationPipe } from 'pipes/validation.pipe';
 import { RolesGuard } from 'guards/roles.guard'
 import { TimeoutInterceptor } from 'interceptors/timeout.interceptor'
 import { AppModule } from './app.module';
-
-const PORT = process.env.PORT || 1111;
+import { AppConfigService } from './app'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  /**
+   * Get app configurations
+   */
+  const appConfig: AppConfigService = app.get('AppConfigService');
+
   /** Enable CORS */
   app.enableCors();
 
@@ -60,6 +65,6 @@ async function bootstrap() {
    */
   app.useGlobalInterceptors(new TimeoutInterceptor());
 
-  await app.listen(PORT);
+  await app.listen(appConfig.port);
 }
 bootstrap();
