@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { User } from 'resources/users/users.service';
 
 export type jwtPayloadType = {
-    username: string,
+    profile: User,
     sub: number,
 }
 
@@ -33,7 +33,7 @@ export class AuthService {
     }
 
     async login(user: User): Promise<jwtResponseType> {
-        const payload: jwtPayloadType = { username: user.username, sub: user.id };
+        const payload: jwtPayloadType = { profile: user, sub: user.id };
 
         return {
             access_token: this.jwtService.sign(payload),

@@ -1,6 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { roleType } from 'decorators/roles.decorator'
+import { jwtPayloadType } from 'auth/auth.service'
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -20,20 +21,14 @@ export class RolesGuard implements CanActivate {
             return true;
         }
 
-        /**
-         * @TODO: attach roles in user object to be passed here.
-         * remove option array
-         * */ 
         const request = context.switchToHttp().getRequest();
-        const user = request.user || {};
+        const { profile }: jwtPayloadType = request.user;
 
-        return this.matchRoles(roles, user.roles || [])
+        return this.matchRoles(roles, profile.roles)
     }
 
-    // @TODO Initial only
     private matchRoles(roles: roleType[], userRoles: string[]): boolean {
         for (const role of roles) {
-            console.log('role', role)
             if (userRoles.includes(role)) {
                 return true;
             }

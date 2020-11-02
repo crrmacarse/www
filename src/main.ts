@@ -1,4 +1,4 @@
-import { NestFactory, Reflector } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
@@ -6,7 +6,6 @@ import { RATE_LIMIT_WINDOW_MS, RATE_LIMIT_MAX } from 'constants/default';
 import { loggerMiddleware } from 'middleware/logger.middleware';
 import { HttpExceptionFilter } from 'exception/http-exception.filter'
 import { ValidationPipe } from 'pipes/validation.pipe';
-import { RolesGuard } from 'guards/roles.guard'
 import { TimeoutInterceptor } from 'interceptors/timeout.interceptor'
 import { AppModule } from './app.module';
 import { AppConfigService } from './app'
@@ -56,11 +55,6 @@ async function bootstrap() {
    * Inject validation
    */
   app.useGlobalPipes(new ValidationPipe());
-
-  /**
-   * Role Proection
-   */
-  app.useGlobalGuards(new RolesGuard(new Reflector()));
 
   /**
    * Global Interceptors
