@@ -16,3 +16,8 @@ export const REQUEST_TIME_OUT = 10000;
  */
 export const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 export const RATE_LIMIT_MAX = 100;
+
+/**
+ * Expiration time of Jwt Token
+ */
+export const JWT_TOKEN_EXPIRATION = '15min'
