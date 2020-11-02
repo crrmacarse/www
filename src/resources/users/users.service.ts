@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { roleType } from 'decorators/roles.decorator';
+import { permissionType } from 'decorators/permissions.decorator';
 
 export type User = {
     id: number,
     username: string,
     password: string,
     roles: roleType[],
-    permissions: string[], 
+    permissions: permissionType[], 
 };
 
 @Injectable()
@@ -19,8 +20,8 @@ export class UsersService {
                 id: 1,
                 username: 'test',
                 password: 'test',
-                roles: [],
-                permissions: [],
+                roles: ['admin'],
+                permissions: ['read', 'write'],
             },
             {
                 id: 2,
