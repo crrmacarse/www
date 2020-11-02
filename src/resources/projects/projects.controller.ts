@@ -23,11 +23,14 @@ export class ProjectsController {
         return `Return project with id ${id}`;
     }
 
+    /**
+     * Submitting must be application/json and "raw"
+     * 
+     * refer: https://stackoverflow.com/questions/61086951/why-body-in-post-request-is-not-working-properly-nest-js
+     */
     @Post()
     @Roles('admin')
     async create(@Body() createProjectDto: CreateProjectDto) {
-        console.log(createProjectDto)
-
         this.projectService.create(createProjectDto);
     }
 
