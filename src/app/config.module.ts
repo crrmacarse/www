@@ -16,6 +16,7 @@ import { DEFAULT_APP_NAME, DEFAULT_APP_URL, DEFAULT_APP_PORT } from 'constants/d
           .default('development'),
         APP_URL: Joi.string().default(DEFAULT_APP_URL),
         APP_PORT: Joi.number().default(DEFAULT_APP_PORT),
+        APP_KEY: Joi.string().required(),
       }),
     }),
   ],
