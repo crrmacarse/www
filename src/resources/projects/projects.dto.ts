@@ -1,9 +1,11 @@
-import { IsString } from 'class-validator';
+import { IsString, isNotEmpty, IsNotEmpty } from 'class-validator';
 
 export class CreateProjectDto {
+    @IsNotEmpty()
     @IsString()
     title: string;
 
+    @IsNotEmpty()
     @IsString()
     type: string;
 
@@ -11,9 +13,11 @@ export class CreateProjectDto {
 }
 
 export class UpdateProjectDto {
+    @IsNotEmpty()
     @IsString()
     title: string;
 
+    @IsNotEmpty()
     @IsString()
     type: string;
 

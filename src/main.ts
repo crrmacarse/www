@@ -1,11 +1,11 @@
 import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { RATE_LIMIT_WINDOW_MS, RATE_LIMIT_MAX } from 'constants/default';
 import { loggerMiddleware } from 'middleware/logger.middleware';
 import { HttpExceptionFilter } from 'exception/http-exception.filter'
-import { ValidationPipe } from 'pipes/validation.pipe';
 import { TimeoutInterceptor } from 'interceptors/timeout.interceptor'
 import { AppModule } from './app.module';
 import { AppConfigService } from './app'
