@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { roleType } from 'decorators/roles.decorator';
 
 export type User = {
     id: number,
     username: string,
-    password: string
+    password: string,
+    roles: roleType[],
+    permissions: string[], 
 };
 
 @Injectable()
@@ -16,11 +19,15 @@ export class UsersService {
                 id: 1,
                 username: 'test',
                 password: 'test',
+                roles: [],
+                permissions: [],
             },
             {
                 id: 2,
                 username: 'test2',
                 password: 'test2',
+                roles: [],
+                permissions: [],
             }
         ]
     }
