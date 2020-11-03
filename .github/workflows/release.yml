@@ -17,4 +17,8 @@ jobs:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
-        script: /home/crrmacarse/www/api/bin/deploy.sh $GITHUB_SHA
+        script: |
+         cd /home/crrmacarse/www/api
+         export NVM_DIR="$HOME/.nvm"
+         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+         ./bin/deploy.sh $GITHUB_SHA
