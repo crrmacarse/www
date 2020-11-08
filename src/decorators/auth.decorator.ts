@@ -4,7 +4,7 @@ import { roleType } from './roles.decorator';
 export type authType = {
     username: string,
     roles: roleType[],
-}
+};
 
 /**
  * Type-safe access of of request context

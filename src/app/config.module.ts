@@ -3,7 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
 import { AppConfigService } from './config.service';
 import configuration from './configuration';
-import { DEFAULT_APP_NAME, DEFAULT_APP_URL, DEFAULT_APP_PORT } from 'constants/default'
+import { DEFAULT_APP_NAME, DEFAULT_APP_URL, DEFAULT_APP_PORT } from 'constants/default';
 
 @Module({
   imports: [

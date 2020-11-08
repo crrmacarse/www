@@ -20,4 +20,4 @@ export const RATE_LIMIT_MAX = 100;
 /**
  * Expiration time of Jwt Token
  */
-export const JWT_TOKEN_EXPIRATION = '15min'
+export const JWT_TOKEN_EXPIRATION = '15min';

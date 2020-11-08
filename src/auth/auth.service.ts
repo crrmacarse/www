@@ -6,12 +6,12 @@ import { User } from 'resources/users/users.service';
 export type jwtPayloadType = {
     profile: User,
     sub: number,
-}
+};
 
 export type jwtResponseType = {
     access_token: string,
     timestamp: string,
-}
+};
 
 @Injectable()
 export class AuthService {
@@ -38,7 +38,7 @@ export class AuthService {
         return {
             access_token: this.jwtService.sign(payload),
             timestamp: new Date().toISOString(),
-        }
+        };
     }
 
 }

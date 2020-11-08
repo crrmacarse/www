@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import * as ROUTES from 'constants/routes';
 import { ListAllEntities } from 'constants/dto';
-import { ParseParamIntPipe } from 'pipes/parse-param-int.pipe'
+import { ParseParamIntPipe } from 'pipes/parse-param-int.pipe';
 import { Roles } from 'decorators/roles.decorator';
 import { CreateProjectDto, UpdateProjectDto } from './projects.dto';
 import { ProjectsService } from './projects.service';
@@ -13,7 +13,7 @@ export class ProjectsController {
 
     @Get()
     async findAll(@Query() query: ListAllEntities): Promise<Project[]> {
-        console.log(`This action returns all projects (limit: ${query.limit} items)`)        
+        console.log(`This action returns all projects (limit: ${query.limit} items)`);        
 
         return this.projectService.findAll();
     }
@@ -36,13 +36,13 @@ export class ProjectsController {
 
     @Put(':id')
     async update(@Param('id', new ParseParamIntPipe()) id: number, @Body() updateProjectDto: UpdateProjectDto) {
-        console.log(updateProjectDto)
+        console.log(updateProjectDto);
 
-        return 'Update a project'
+        return 'Update a project';
     }
 
     @Delete(':id')
     async delete(@Param('id', new ParseParamIntPipe()) id: number) {
-        return `Delete this project ${id}`
+        return `Delete this project ${id}`;
     }
 }

@@ -1,4 +1,4 @@
-import { DatabaseModule } from './database.module'
+import { DatabaseModule } from './database.module';
 import { DatabaseConfigModule } from './database.config.module';
 import { DatabaseConfigService } from './database.config.service';
 

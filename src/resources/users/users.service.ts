@@ -30,7 +30,7 @@ export class UsersService {
                 roles: [],
                 permissions: [],
             }
-        ]
+        ];
     }
 
     async findOne(username: string): Promise<User | undefined> {
