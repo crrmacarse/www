@@ -4,11 +4,11 @@ import * as compression from 'compression';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { RATE_LIMIT_WINDOW_MS, RATE_LIMIT_MAX } from 'constants/default';
-import { loggerMiddleware } from 'middleware/logger.middleware';
-import { HttpExceptionFilter } from 'exception/http-exception.filter'
-import { TimeoutInterceptor } from 'interceptors/timeout.interceptor'
+import { loggerMiddleware } from 'middleware/logger.middleware';;
+import { HttpExceptionFilter } from 'exception/http-exception.filter';
+import { TimeoutInterceptor } from 'interceptors/timeout.interceptor';
 import { AppModule } from './app.module';
-import { AppConfigService } from './app'
+import { AppConfigService } from './app';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -37,7 +37,7 @@ async function bootstrap() {
   /**
    * Apply gzip compression
    */
-  app.use(compression())
+  app.use(compression());
 
   /**
    * Apply custom filter
