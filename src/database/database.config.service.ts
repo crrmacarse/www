@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { AppConfigService } from 'app';
 
 @Injectable()
 export class DatabaseConfigService {
-    constructor(private configService: ConfigService) {}
+    constructor(
+        private configService: ConfigService,
+        private appConfigService: AppConfigService
+       ) {}
  
     get host(): string {
         return this.configService.get<string>('database.host');
@@ -35,8 +39,9 @@ export class DatabaseConfigService {
             database: this.name,
             username: this.username,
             password: this.password,
-            entities: [],
-            synchronize: true,
+            autoLoadEntities: true,
+            logging: this.appConfigService.env !== 'production',
+            // synchronize: true,
         };
     }
 }

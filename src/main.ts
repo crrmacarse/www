@@ -7,11 +7,15 @@ import { RATE_LIMIT_WINDOW_MS, RATE_LIMIT_MAX } from 'constants/default';
 import { loggerMiddleware } from 'middleware/logger.middleware';;
 import { HttpExceptionFilter } from 'exception/http-exception.filter';
 import { TimeoutInterceptor } from 'interceptors/timeout.interceptor';
+import { AppConfigService } from 'app';
 import { AppModule } from './app.module';
-import { AppConfigService } from './app';
+
+declare const module: any;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: true,
+  });
 
   /**
    * Get app configurations
@@ -62,5 +66,10 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TimeoutInterceptor());
 
   await app.listen(appConfig.port);
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 }
 bootstrap();

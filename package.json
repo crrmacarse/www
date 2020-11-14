@@ -10,7 +10,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "start:dev": "nest build --webpack --webpackPath webpack-hmr.config.js",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
@@ -29,7 +29,10 @@
     "@nestjs/jwt": "^7.1.0",
     "@nestjs/passport": "^7.1.0",
     "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/schedule": "^0.4.1",
+    "@nestjs/terminus": "^7.0.1",
     "@nestjs/typeorm": "^7.1.4",
+    "cache-manager": "^3.4.0",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
     "compression": "^1.7.4",
@@ -62,12 +65,14 @@
     "eslint-plugin-import": "^2.20.1",
     "jest": "26.4.2",
     "prettier": "^1.19.1",
+    "start-server-webpack-plugin": "^2.2.5",
     "supertest": "^4.0.2",
     "ts-jest": "26.2.0",
     "ts-loader": "^6.2.1",
     "ts-node": "9.0.0",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.4",
+    "webpack-node-externals": "^2.5.2"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -75,7 +80,10 @@
       "json",
       "ts"
     ],
-    "moduleDirectories": ["node_modules", "src"],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
     "rootDir": "src",
     "testRegex": ".spec.ts$",
     "transform": {

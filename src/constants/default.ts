@@ -1,7 +1,7 @@
 /**
  * App Default Configurations
  */
-export const DEFAULT_APP_NAME = 'xtendops-api';
+export const DEFAULT_APP_NAME = 'crrmacarse@api';
 export const DEFAULT_APP_URL = 'http://128.199.120.140';
 export const DEFAULT_APP_PORT = 1111;
 
