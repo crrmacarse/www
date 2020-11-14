@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AppController, AppService, AppConfigModule } from 'app';
+import { AuthModule } from 'auth';
 import { DatabaseModule } from 'database';
 import { HealthModule } from 'health';
-import { ResourceModule } from './resources';
-import { AuthModule } from './auth/auth.module';
+import { ResourceModule } from 'resources';
 import { FeatureModule } from './feature.module';
 
 @Module({

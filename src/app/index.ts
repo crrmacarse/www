@@ -2,5 +2,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AppConfigModule } from './config.module';
 import { AppConfigService } from './config.service';
+import { AppModule } from 'app.module';
 
-export { AppController, AppService, AppConfigModule, AppConfigService };
+export {
+    AppModule,
+    AppController,
+    AppService,
+    AppConfigModule,
+    AppConfigService,
+};
