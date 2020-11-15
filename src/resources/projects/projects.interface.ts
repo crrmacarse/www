@@ -1,5 +1,10 @@
-export interface Project {
+import { BaseInterface } from 'constants/base.interface';
+
+export type workedOnType = 'Personal' | 'Waffle Time' | 'Project Assistant' | 'XtendOps';
+export interface Project extends BaseInterface {
     title: string;
-    type: string;
-    // date: DateTime
+    description: string;
+    workedOn: workedOnType;
+    tags: string[];
+    links: any;
 }

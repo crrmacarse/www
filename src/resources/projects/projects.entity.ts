@@ -1,8 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from 'constants/base.entity';
+import { workedOnType } from './projects.interface';
 
 @Entity()
-export class Accounts extends BaseEntity {
+export class Projects extends BaseEntity{
     @PrimaryGeneratedColumn({
         type: 'int',
     })
@@ -10,23 +11,30 @@ export class Accounts extends BaseEntity {
 
     @Column({
         type: 'varchar',
+        length: 25,
         nullable: false,
-        length: 30,
     })
-    username: string;
+    title: string;
+
+    @Column({
+        type: 'text',
+        nullable: false,
+    })
+    description: string;
 
     @Column({
         type: 'varchar',
-        nullable: false,
-        select: false,
+        name: 'worked_on'
     })
-    password: string;
+    workedOn: workedOnType;
+ 
+    @Column({
+        type: 'json',
+    })
+    tags: string[];
 
     @Column({
-        type: 'varchar',
-        name: 'google_token',
-        nullable: false,
-        select: false,
+       type: 'json' 
     })
-    googleToken: string;
+    links: any; // @TODO
 }

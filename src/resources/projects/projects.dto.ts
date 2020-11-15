@@ -1,25 +1,28 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, Length, IsArray } from 'class-validator';
+import { workedOnType } from './projects.interface';
 
-export class CreateProjectDto {
+export class BaseProjectDto {
     @IsNotEmpty()
     @IsString()
-    title: string;
+    @Length(5, 25)
+    title: string; 
 
     @IsNotEmpty()
     @IsString()
-    type: string;
+    @Length(20)
+    description: string;
 
-    // date: DateTime;
+    @IsNotEmpty()
+    @IsString()
+    workedOn: workedOnType;
+
+    @IsArray()
+    tags: [];
+
+    // @IsJSON()
+    links: any;
 }
 
-export class UpdateProjectDto {
-    @IsNotEmpty()
-    @IsString()
-    title: string;
+export class CreateProjectDto extends BaseProjectDto {}
 
-    @IsNotEmpty()
-    @IsString()
-    type: string;
-
-    // date: DateTime;
-}
+export class UpdateProjectDto extends BaseProjectDto {}
