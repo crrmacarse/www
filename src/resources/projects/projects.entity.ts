@@ -37,4 +37,9 @@ export class Projects extends BaseEntity{
        type: 'json' 
     })
     links: any; // @TODO
+
+    @Column({
+        type: 'int',
+    })
+    priority: number;
 }

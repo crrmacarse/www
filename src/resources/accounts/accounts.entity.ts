@@ -1,5 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert, BeforeUpdate } from 'typeorm';
 import { BaseEntity } from 'constants/base.entity';
+import { hash } from 'bcrypt';
+import { BCRYPT_SALT } from 'constants/default';
+import { roleType } from './accounts.interface';
 
 @Entity()
 export class Accounts extends BaseEntity {
@@ -29,4 +32,17 @@ export class Accounts extends BaseEntity {
         select: false,
     })
     googleToken: string;
+
+    @Column({
+        type: 'varchar',
+        nullable: false,
+        default: 'client',
+    })
+    role: roleType;
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    async hashPassword() {
+        this.password = await hash(this.password, BCRYPT_SALT);
+    }
 }

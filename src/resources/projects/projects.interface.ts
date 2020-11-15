@@ -1,5 +1,10 @@
 import { BaseInterface } from 'constants/base.interface';
 
+/**
+ * @TODO:
+ * 
+ * I could extend this
+ */
 export type workedOnType = 'Personal' | 'Waffle Time' | 'Project Assistant' | 'XtendOps';
 export interface Project extends BaseInterface {
     title: string;
@@ -7,4 +12,5 @@ export interface Project extends BaseInterface {
     workedOn: workedOnType;
     tags: string[];
     links: any;
+    priority: number;
 }

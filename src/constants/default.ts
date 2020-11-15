@@ -23,3 +23,8 @@ export const RATE_LIMIT_MAX = 100;
 export const JWT_TOKEN_EXPIRATION = '15min';
 
 export const DEFAULT_ACCOUNT_ID = 1;
+
+/**
+ * Bycrypt salt
+ */
+export const BCRYPT_SALT = 10;

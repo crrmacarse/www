@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, Length, IsArray } from 'class-validator';
+import { IsString, IsNotEmpty, Length, IsArray, IsInt } from 'class-validator';
 import { workedOnType } from './projects.interface';
 
 export class BaseProjectDto {
@@ -21,6 +21,9 @@ export class BaseProjectDto {
 
     // @IsJSON()
     links: any;
+
+    @IsInt()
+    priority: number;
 }
 
 export class CreateProjectDto extends BaseProjectDto {}
