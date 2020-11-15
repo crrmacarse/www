@@ -3,6 +3,7 @@ export default {
     'title': 'Personal Server',
     'description': 'A feature-rich NodeJS application where I do experimental stuff',
     'author': 'crrmacarse',
+    'link': 'https://github.com/crrmacarse/api',
     'stack': {
         'NodeJS': '14.13',
         'nestjs': '1.4',
