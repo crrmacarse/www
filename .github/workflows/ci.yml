@@ -2,6 +2,17 @@ name: CI
 
 on: [push]
 
+env:
+  NODE_ENV: test 
+  APP_KEY: ${{ secrets.APP_KEY }}
+  APP_NAME: ${{ secrets.APP_NAME }}
+  APP_URL: ${{ secrets.APP_URL }}
+  DB_HOST: ${{ secrets.DB_HOST }}
+  DB_NAME: ${{ secrets.DB_NAME }}
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+  DB_PORT: ${{ secrets.DB_PORT }}
+  DB_USERNAME: ${{ secrets.DB_USERNAME }}
+
 jobs:
   test:
     name: CI checks
