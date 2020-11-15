@@ -6,6 +6,7 @@ const StartServerPlugin = require('start-server-webpack-plugin');
 module.exports = function (options) {
     return {
         ...options,
+        mode: 'development',
         entry: ['webpack/hot/poll?100', options.entry],
         watch: true,
         externals: [
@@ -19,5 +20,8 @@ module.exports = function (options) {
             new webpack.WatchIgnorePlugin([/\.js$/, /\.d\.ts$/]),
             new StartServerPlugin({ name: options.output.filename }),
         ],
+        optimization: {
+            namedModules: true
+        }
     };
 };
