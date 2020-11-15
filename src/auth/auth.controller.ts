@@ -12,6 +12,12 @@ import { AuthService } from './auth.service';
 export class AuthController {
     constructor(private authService: AuthService) {}
 
+    @UseGuards(JwtAuthGuard)
+    @Get()
+    getAuth(@Request() req) {
+        return req.user;
+    }
+
     @UseGuards(LocalAuthGuard)
     @Post('login')
     async login(@Request() req) {

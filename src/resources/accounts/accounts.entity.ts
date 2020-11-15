@@ -15,8 +15,17 @@ export class Accounts extends BaseEntity {
         type: 'varchar',
         nullable: false,
         length: 30,
+        unique: true,
     })
     username: string;
+
+    @Column({
+        type: 'varchar',
+        nullable: false,
+        length: 50,
+        unique: true,
+    })
+    email: string;
 
     @Column({
         type: 'varchar',
@@ -30,6 +39,7 @@ export class Accounts extends BaseEntity {
         name: 'google_token',
         nullable: false,
         select: false,
+        unique: true,
     })
     googleToken: string;
 
