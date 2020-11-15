@@ -10,9 +10,18 @@ export class HealthController {
 
   @Get()
   @HealthCheck()
-  check() {
-    return this.health.check([
-      () => this.dns.pingCheck('XtendOps Main Website', 'https://xtendops.us'),
+  async check() {
+    const portfolioWebsite = await this.health.check([
+      () => this.dns.pingCheck('Portfolio Website', 'http://crrmacarse.github.io/'),
     ]);
+  
+    const personalServer = await this.health.check([
+      () => this.dns.pingCheck('Personal Server', 'http://139.59.100.139/'),
+    ]);
+
+    return {
+      portfolioWebsite,
+      personalServer,
+    };
   }
 }
