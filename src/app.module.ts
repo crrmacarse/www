@@ -4,6 +4,7 @@ import { AuthModule } from 'auth';
 import { DatabaseModule } from 'database';
 import { HealthModule } from 'health';
 import { ResourceModule } from 'resources';
+import { UploadModule } from 'upload';
 import { FeatureModule } from './feature.module';
 
 @Module({
@@ -14,6 +15,7 @@ import { FeatureModule } from './feature.module';
     DatabaseModule,
     HealthModule,
     ResourceModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [
