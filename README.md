@@ -2,20 +2,34 @@
 
 Using NestJS as framework.
 
-## Installation
+### Installation
 
 ```bash
 $ npm install
 ```
 
-## Running the Application
+## Development
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
+# start development
 $ npm run start:dev
+
+# Or utilize hot reloading. This will result for faster develoopment build time(recommended)
+$ npm run start:hot
+```
+
+It is highly recommended to run testing on background
+
+```bash
+# run testing on background
+$ npm run test:watch
+```
+
+## Production
+
+```bash
+# build production files
+$ npm run build
 
 # production mode
 $ npm run start:prod
@@ -33,6 +47,10 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## Known Issues
+
+- Becareful of importing `module.ts` instead of `http-module.ts` in resolving module dependency. You should be using the `http` version. There will be no errors for it, Only showing "running" but the server doesn't start.
 
 ## Resources
 
