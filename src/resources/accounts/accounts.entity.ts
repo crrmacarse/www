@@ -37,9 +37,7 @@ export class Accounts extends BaseEntity {
     @Column({
         type: 'varchar',
         name: 'google_token',
-        nullable: false,
         select: false,
-        unique: true,
     })
     googleToken: string;
 
