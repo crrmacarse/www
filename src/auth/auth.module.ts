@@ -3,7 +3,7 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { AppConfigModule, AppConfigService } from 'app';
 import { JWT_TOKEN_EXPIRATION } from 'constants/default';
-import { UsersModule } from 'resources/users/users.module';
+import { AccountsHttpModule } from 'resources/accounts/accounts-http.module';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { LocalStrategy } from './local.strategy';
@@ -11,7 +11,7 @@ import { JwtSrategy } from './jwt.strategy';
 
 @Module({
   imports: [
-    UsersModule,
+    AccountsHttpModule,
     PassportModule,
     JwtModule.registerAsync({
       imports: [AppConfigModule],

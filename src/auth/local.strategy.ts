@@ -10,6 +10,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
         private moduleRef: ModuleRef
     ) {
         super({
+            usernameField: 'uid',
             passReqToCallback: true,
         });
     }

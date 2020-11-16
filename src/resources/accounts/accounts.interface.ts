@@ -6,6 +6,7 @@ export interface Account extends BaseInterface {
     username: string;
     email: string;
     password: string;
+    refreshToken: string;
     googleToken: string;
     role: roleType;
 }

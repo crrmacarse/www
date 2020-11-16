@@ -36,8 +36,17 @@ export class Accounts extends BaseEntity {
 
     @Column({
         type: 'varchar',
+        name: 'refresh_token',
+        select: false,
+        nullable: true,
+    })
+    refreshToken: string;
+
+    @Column({
+        type: 'varchar',
         name: 'google_token',
         select: false,
+        nullable: true,
     })
     googleToken: string;
 

@@ -1,6 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { compare } from 'bcrypt';
 import { CreateAccountDto, UpdateAccountDto } from './accounts.dto';
 import { Accounts } from './accounts.entity';
 
@@ -24,6 +25,16 @@ export class AccountsService {
             where: [
                 { username: uid },
                 { email: uid },
+            ],
+            select: [
+                'id',
+                'username',
+                'email',
+                'password',
+                'role',
+                'createdAt',
+                'updatedAt',
+                'updatedBy',
             ]
         });
 
@@ -54,7 +65,24 @@ export class AccountsService {
         await this.accountRepository.delete(id);
     }
 
-    async changePassword(account: Accounts, newPassword: string) {
+    async verifyPassword(plainTextPassword: string, hashedPassword: string): Promise<boolean> {
+        const isPasswordMatch = await compare(
+            plainTextPassword,  
+            hashedPassword,
+        );
+
+        return isPasswordMatch;
+    }
+
+    async changePassword(id: number, oldPassword, newPassword: string) {
+        const account = await this.accountRepository.findOne(id);
+
+        const isMatch = await this.verifyPassword(oldPassword, account.password);
+
+        if (!isMatch) {
+            throw new BadRequestException('Password doesn\'nt match');
+        }
+
         account.password = newPassword;
 
         await this.accountRepository.save(account);

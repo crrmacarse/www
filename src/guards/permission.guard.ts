@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { Reflector } from '@nestjs/core';
 import { permissionType } from 'decorators/permissions.decorator';
-import { jwtPayloadType } from 'auth/auth.service';
+import { jwtPayloadType } from 'auth/auth.interface';
 
 @Injectable()
 export class PermissionGuard implements CanActivate {
