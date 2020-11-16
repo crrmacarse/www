@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AppController, AppService, AppConfigModule } from 'app';
+import { AppModule, AppConfigModule } from 'app';
 import { AuthModule } from 'auth';
 import { DatabaseModule } from 'database';
 import { HealthModule } from 'health';
@@ -9,6 +9,7 @@ import { FeatureModule } from './feature.module';
 
 @Module({
   imports: [
+    AppModule,
     AppConfigModule,
     AuthModule,
     FeatureModule,
@@ -17,9 +18,5 @@ import { FeatureModule } from './feature.module';
     ResourceModule,
     UploadModule,
   ],
-  controllers: [AppController],
-  providers: [
-    AppService,
-  ],
 })
-export class AppModule { }
+export class MainModule { }

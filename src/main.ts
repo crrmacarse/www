@@ -8,12 +8,12 @@ import { loggerMiddleware } from 'middleware/logger.middleware';;
 import { HttpExceptionFilter } from 'exception/http-exception.filter';
 import { TimeoutInterceptor } from 'interceptors/timeout.interceptor';
 import { AppConfigService } from 'app';
-import { AppModule } from './app.module';
+import { MainModule } from './main.module';
 
 declare const module: any;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
+  const app = await NestFactory.create(MainModule, {
     logger: true,
   });
 
