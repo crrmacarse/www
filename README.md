@@ -56,6 +56,8 @@ $ npm run test:cov
 
 - https://nestjs.com/
 - https://github.com/nestjs/nest
+- https://wanago.io/2020/07/06/api-nestjs-unit-tests/
+- https://www.carloscaballero.io/part-9-clock-in-out-system-testing-backend-unit-test-services/
 
 ## Get in touch
 
