@@ -4,6 +4,16 @@ on:
   release:
     types:
       - released
+env:
+  NODE_ENV: test 
+  APP_KEY: ${{ secrets.APP_KEY }}
+  APP_NAME: ${{ secrets.APP_NAME }}
+  APP_URL: ${{ secrets.APP_URL }}
+  DB_HOST: ${{ secrets.DB_HOST }}
+  DB_NAME: ${{ secrets.DB_NAME }}
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+  DB_PORT: ${{ secrets.DB_PORT }}
+  DB_USERNAME: ${{ secrets.DB_USERNAME }}
 
 jobs:
   publish:
@@ -11,7 +21,28 @@ jobs:
     steps:
     - uses: actions/checkout@v2.0.0
 
-    - name: Execute command in server
+    - name: Use node 12
+      uses: actions/setup-node@v1
+      with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org
+
+    - name: Installing dependencies..
+      run: npm install
+
+    - name: Running lint checks..
+      run: npm run lint
+
+    - name: Running unit testing..
+      run: npm run test
+
+    - name: Running e2e testing..
+      run: npm run test:e2e
+
+    - name: Building...
+      run: npm run build
+
+    - name: Deploying..
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SERVER_HOST }}
