@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
@@ -21,6 +22,25 @@ async function bootstrap() {
    * Get app configurations
    */
   const appConfig: AppConfigService = app.get('AppConfigService');
+
+  const swaggerOptions = new DocumentBuilder()
+    .setTitle('Personal API Server')
+    .setDescription('https://github.com/crrmacarse')
+    .setVersion(`v${process.env.npm_package_version}`)
+    .addBearerAuth()
+    .build();
+
+  const document = SwaggerModule.createDocument(app, swaggerOptions, {
+    operationIdFactory: (
+      controllerKey: string,
+      methodKey: string
+    ) => methodKey,
+  });
+
+  /**
+   * Load swagger in /docs route
+   */
+  SwaggerModule.setup('docs', app, document);
 
   /** Enable CORS */
   app.enableCors();
