@@ -1,8 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from 'constants/base.entity';
 
-@Entity()
-export class Permissions extends BaseEntity {
+@Entity({
+    name: 'permissions'
+})
+export class Permission extends BaseEntity {
     @PrimaryGeneratedColumn({
         type: 'int',
     })
