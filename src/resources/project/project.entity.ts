@@ -1,9 +1,11 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from 'constants/base.entity';
-import { workedOnType } from './projects.interface';
+import { workedOnType } from './project.interface';
 
-@Entity()
-export class Projects extends BaseEntity{
+@Entity({
+    name: 'projects',
+})
+export class Project extends BaseEntity{
     @PrimaryGeneratedColumn({
         type: 'int',
     })

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Project } from './projects.interface';
+import { Project } from './project.interface';
 
 @Injectable()
-export class ProjectsService {
+export class ProjectService {
     private readonly projects: Project[] = [];
 
     create(project: Project) {

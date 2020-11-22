@@ -3,13 +3,13 @@ import * as ROUTES from 'constants/routes';
 import { ListAllEntities } from 'constants/dto';
 import { ParseParamIntPipe } from 'pipes/parse-param-int.pipe';
 import { Roles } from 'decorators/roles.decorator';
-import { CreateProjectDto, UpdateProjectDto } from './projects.dto';
-import { ProjectsService } from './projects.service';
-import { Project } from './projects.interface';
+import { CreateProjectDto, UpdateProjectDto } from './project.dto';
+import { ProjectService } from './project.service';
+import { Project } from './project.interface';
 
 @Controller(ROUTES.PROJECTS)
-export class ProjectsController {
-    constructor(private projectService: ProjectsService) {}
+export class ProjectController {
+    constructor(private projectService: ProjectService) {}
 
     @Get()
     async findAll(@Query() query: ListAllEntities): Promise<Project[]> {

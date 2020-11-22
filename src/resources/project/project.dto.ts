@@ -1,5 +1,5 @@
 import { IsString, IsNotEmpty, Length, IsArray, IsInt } from 'class-validator';
-import { workedOnType } from './projects.interface';
+import { workedOnType } from './project.interface';
 
 export class BaseProjectDto {
     @IsNotEmpty()
