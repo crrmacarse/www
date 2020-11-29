@@ -2,11 +2,13 @@
 
 Using NestJS as framework.
 
-### Installation
+## Setup
 
 ```bash
 $ npm install
 ```
+
+> Make sure to have an identical .env file with the given .env.example in the root folder
 
 ## Development
 
@@ -24,6 +26,23 @@ It is highly recommended to run testing on background
 # run testing on background
 $ npm run test:watch
 ```
+
+#### Documentation
+
+```bash
+# Run built-in documentation
+npm run doc
+```
+
+#### Debugging
+
+```bash
+# Run the application in debug mode
+npm run start:dev
+```
+
+> TIP: You could manually set `DEBUG=true` in your .env file. It'll stream ouputs in the console.
+
 
 ## Production
 
@@ -51,6 +70,11 @@ $ npm run test:cov
 ## Known Issues
 
 - Becareful of importing `module.ts` instead of `http-module.ts` in resolving module dependency. You should be using the `http` version. There will be no errors for it, Only showing "running" but the server doesn't start.
+- Serialization response returns "support" columns first instead of PK. This is due to extending of BaseEntity. An issue was already raised about this here: https://github.com/typeorm/typeorm/issues/541
+- Typo with `privileges` database table. Named "privelage" instead of "privilege". Can't adjust the database yet since recruitment is still uising it.
+- From NestJS regarding Serialization: "Note that we must return an instance of the class. If you return a plain JavaScript object, for example, { user: new UserEntity() }, the object won't be properly serialized". To mitigate such issue, utilize `plainToClass` from `class-transformer`.
+- Added `--forceExit` in e2e tests run as it doesn't seem to end on its own(https://github.com/nestjs/nest/issues/1538)
+- Adding `select:false` on column entity with a hook-based approach(Example: `@BeforeInsert`, `@BeforeUpdate`) won't be triggered.
 
 ## Resources
 
