@@ -7,6 +7,7 @@ on:
 env:
   NODE_ENV: test 
   APP_KEY: ${{ secrets.APP_KEY }}
+  APP_REFRESH_KEY: ${{ secrets.APP_REFRESH_KEY }}
   APP_NAME: ${{ secrets.APP_NAME }}
   APP_URL: ${{ secrets.APP_URL }}
   DB_HOST: ${{ secrets.DB_HOST }}
