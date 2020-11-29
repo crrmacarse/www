@@ -26,4 +26,12 @@ export class AppConfigService {
   get key(): string {
     return this.configService.get<string>('app.key');
   }
+
+  get refreshKey(): string {
+    return this.configService.get<string>('app.refreshKey');
+  }
+
+  get debug(): boolean {
+    return Boolean(this.configService.get<boolean>('app.debug'));
+  }
 }

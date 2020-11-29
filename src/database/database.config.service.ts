@@ -31,8 +31,6 @@ export class DatabaseConfigService {
     }
 
     get getTypeOrmConfig(): TypeOrmModuleOptions {
-        const isDevelopment = this.appConfigService.env !== 'production';
-
         return {
             type: 'mysql',
             keepConnectionAlive: true,
@@ -42,8 +40,8 @@ export class DatabaseConfigService {
             username: this.username,
             password: this.password,
             autoLoadEntities: true,
-            logging: isDevelopment,
-            synchronize: isDevelopment,
+            logging: this.appConfigService.debug,
+            synchronize: this.appConfigService.env !== 'production',
         };
     }
 }
