@@ -1,11 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert, BeforeUpdate } from 'typeorm';
+import {
+    Column, Entity, PrimaryGeneratedColumn,
+    BeforeInsert, BeforeUpdate, ManyToMany, JoinTable,
+} from 'typeorm';
 import { BaseEntity } from 'constants/base.entity';
 import { hash } from 'bcrypt';
 import { BCRYPT_SALT } from 'constants/default';
 import { roleType } from './accounts.interface';
+import { Permission } from 'resources/permission/permission.entity';
 
-@Entity()
-export class Accounts extends BaseEntity {
+@Entity({
+    name: 'accounts',
+})
+export class Account extends BaseEntity {
     @PrimaryGeneratedColumn({
         type: 'int',
     })
@@ -43,6 +49,11 @@ export class Accounts extends BaseEntity {
     refreshToken: string;
 
     @Column({
+        name: 'last_login',
+    })
+    lastLogin: Date;
+
+    @Column({
         type: 'varchar',
         name: 'google_token',
         select: false,
@@ -56,6 +67,25 @@ export class Accounts extends BaseEntity {
         default: 'client',
     })
     role: roleType;
+
+    @Column({
+        name: 'need_change',
+        nullable: false,
+        default: false,
+    })
+    needChange: boolean;
+
+    @ManyToMany(() => Permission, permission => permission.accounts)
+    @JoinTable({
+        name: 'account_permission',
+        joinColumns: [{
+            name: 'account_id',
+        }],
+        inverseJoinColumns: [{
+            name: 'permission_code',
+        }],
+    })
+    permissions: Permission[];
 
     @BeforeInsert()
     @BeforeUpdate()

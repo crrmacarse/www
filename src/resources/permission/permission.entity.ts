@@ -1,19 +1,21 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, PrimaryColumn } from 'typeorm';
 import { BaseEntity } from 'constants/base.entity';
+import { Account } from 'resources/accounts/accounts.entity';
 
 @Entity({
     name: 'permissions'
 })
 export class Permission extends BaseEntity {
-    @PrimaryGeneratedColumn({
-        type: 'int',
+    @PrimaryColumn({
+        type: 'varchar',
+        length: 20,
     })
-    id: number;
+    code: string;
 
     @Column({
         type: 'varchar',
         nullable: false,
-        length: 20,
+        length: 50,
     })
     title: string;
 
@@ -22,4 +24,7 @@ export class Permission extends BaseEntity {
         nullable: true,
     })
     description: string;
+
+    @ManyToMany(() => Account, account => account.permissions)
+    accounts: Account[];
 }

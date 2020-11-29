@@ -13,9 +13,15 @@ export class LoginDto {
 export class ChangePasswordDto {
     @IsNotEmpty()
     @IsString()
-    old_password: string;
+    oldPassword: string;
 
     @IsNotEmpty()
     @IsString()
-    new_password: string;
+    newPassword: string;
+}
+
+export class RefreshTokenDto {
+    @IsNotEmpty()
+    @IsString()
+    refreshToken: string;
 }

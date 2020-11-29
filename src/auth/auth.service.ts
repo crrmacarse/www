@@ -3,8 +3,9 @@ import { JwtService } from '@nestjs/jwt';
 import { AccountsService } from 'resources/accounts/accounts.service';
 import { AppConfigService } from 'app';
 import { JWT_REFRESH_TOKEN_EXPIRATION } from 'constants/default';
+import { Account } from 'resources/accounts/accounts.entity';
 import { omit } from 'lodash';
-import { authProfileType, jwtPayloadType, jwtResponseType } from './auth.interface';
+import {  jwtPayloadType, jwtResponseType } from './auth.interface';
 
 @Injectable()
 export class AuthService {
@@ -13,6 +14,11 @@ export class AuthService {
         private accountService: AccountsService,
         private appConfigService: AppConfigService,
     ) {}
+
+    private refreshSecretOptions = {
+        secret: this.appConfigService.refreshKey,
+        expiresIn: JWT_REFRESH_TOKEN_EXPIRATION,
+    };
 
     async validateUser(uid: string, password: string): Promise<any> {
         const account = await this.accountService.authenticate(uid);
@@ -25,53 +31,63 @@ export class AuthService {
         return null;
     }
 
-    async login(user: authProfileType): Promise<jwtResponseType> {
-        const payload: jwtPayloadType = { profile: user, sub: user.id };
+    async login(account: Account): Promise<jwtResponseType> {
+        const payload: jwtPayloadType = { profile: account, sub: account.id };
+        const accessToken = this.generateAccessToken(payload);
+        const refreshToken = this.generateRefreshToken(payload);
+
+        await this.accountService.saveRefreshToken(account.id, refreshToken);
 
         return {
-            access_token: this.jwtService.sign(payload),
-            refresh_token: await this.generateRefreshToken(payload),
+            accessToken,
+            refreshToken,
+            refreshTokenExpiry: JWT_REFRESH_TOKEN_EXPIRATION,
             timestamp: new Date().toISOString(),
         };
     }
 
-    private existingRefreshTokens: string[] = [];
+    async logout({ sub: accountId }: jwtPayloadType) {
+        await this.accountService.emptyRefreshToken(accountId);
 
-    /**
-     * @TODO
-     * 
-     * 1. Search value of refresh token given the userId(it seems that guard strategy
-     * holds the payload. Payload should be passed in here instead of POSTING refreshToken)
-     * 2. If success then use to re-authenticate. trigger this.login
-     * so user could receive the new accessToken
-     * 3. False value should mark an unauthorized
-     */
-    async regenerateToken (refreshToken: string) {
-        const isValid = this.existingRefreshTokens.some((v => v === refreshToken));
-
-        if (!isValid) {
-            throw new UnauthorizedException();
-        }
-
-        /**
-         * @TOOD
-         * 
-         * I don't have access for user value here. this shold be this.login
-         */
-        return 'yes';
+        return { message: 'Succesfully logged out' };
     }
 
-    async generateRefreshToken (payload: jwtPayloadType): Promise<string> {
-        const options = {
-            secret: this.appConfigService.key,
-            expiresIn: JWT_REFRESH_TOKEN_EXPIRATION,
+    async forgotPassword(email: string) {
+        const account = await this.accountService.findByEmail(email);
+        await this.accountService.validateAccount(account);
+
+        // TODO: Email change password
+        await this.accountService.update(account.id, { needChange: true });
+
+        return { message: 'Check your email address' };
+    }
+
+
+    async regenerateToken(refreshToken: string) {
+        const { sub, profile } = this.verifyRefreshToken(refreshToken);
+
+        await this.accountService.validatedRefreshToken(sub, refreshToken);
+
+        return {
+            accesToken: this.generateAccessToken({ profile, sub }),
+            timestamp: new Date().toISOString(),
         };
+    }
 
-        const refreshToken = this.jwtService.sign(payload, options);
+    private generateAccessToken(payload: jwtPayloadType) {
+        return this.jwtService.sign(payload);
+    }
 
-        // @TODO value should be stored in db. Researching optimal
-        // way to access the user instance and store this value.
-        this.existingRefreshTokens.push(refreshToken);
+    private verifyRefreshToken(refreshToken: string): jwtPayloadType {
+        try {
+            return this.jwtService.verify(refreshToken, this.refreshSecretOptions);
+        } catch (error) {
+            throw new UnauthorizedException('Invalid Refresh Token');
+        }
+    }
+
+    private generateRefreshToken(payload: jwtPayloadType) {
+        const refreshToken = this.jwtService.sign(payload, this.refreshSecretOptions);
 
         return refreshToken;
     }
@@ -79,5 +95,4 @@ export class AuthService {
     async changePassword({ sub: accountId }: jwtPayloadType, oldPassword, newPassword) {
         await this.accountService.changePassword(accountId, oldPassword, newPassword);
     }
-
 }

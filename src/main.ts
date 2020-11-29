@@ -17,7 +17,7 @@ declare const module: any;
 
 async function bootstrap() {
   const app = await NestFactory.create(MainModule, {
-    logger: true,
+    logger: ['log', 'error', 'warn', 'debug', 'verbose'],
   });
 
   /**

@@ -18,9 +18,9 @@ export class AccountPermission extends BaseEntity {
     accountId: number;
 
     @Column({
-        name: 'permission_id',
+        name: 'permission_code',
         type: 'int',
         nullable: false,
     })
-    permissionId: number;
+    permissionCode: number;
 }

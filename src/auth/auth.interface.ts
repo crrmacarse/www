@@ -1,21 +1,13 @@
-import { roleType } from 'decorators/roles.decorator';
-import { permissionType } from 'decorators/permissions.decorator';
-
-export type authProfileType = {
-    id: number,
-    username: string,
-    password: string,
-    roles: roleType[],
-    permissions: permissionType[], 
-};
+import { Account } from 'resources/accounts/accounts.entity';
 
 export type jwtPayloadType = {
-    profile: authProfileType,
+    profile: Account,
     sub: number,
 };
 
 export type jwtResponseType = {
-    access_token: string,
-    refresh_token: string,
+    accessToken: string,
+    refreshToken: string,
+    refreshTokenExpiry: number,
     timestamp: string,
 };
