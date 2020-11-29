@@ -50,6 +50,7 @@ export class Account extends BaseEntity {
 
     @Column({
         name: 'last_login',
+        nullable: true,
     })
     lastLogin: Date;
 

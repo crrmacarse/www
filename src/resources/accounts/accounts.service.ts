@@ -6,7 +6,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { compare, hash } from 'bcrypt';
 import { BCRYPT_SALT } from 'constants/default';
-import { getDate } from 'date-fns';
 import { CreateAccountDto } from './accounts.dto';
 import { Account } from './accounts.entity';
 
@@ -46,6 +45,7 @@ export class AccountsService {
                     'createdAt',
                     'updatedAt',
                     'updatedBy',
+                    'isActive',
                 ]
             });
         
@@ -53,6 +53,7 @@ export class AccountsService {
     
             return account; 
         } catch (error) {
+            console.log(error);
             throw new NotFoundException('Account not found');
         }
     }
@@ -81,7 +82,7 @@ export class AccountsService {
         const hashedRefreshToken = await hash(refreshToken, BCRYPT_SALT);
 
         await this.accountRepository.update(accountId, {
-            refreshToken: hashedRefreshToken, lastLogin: getDate(new Date()), // @todo
+            refreshToken: hashedRefreshToken, lastLogin: new Date(), // @todo
         });
     }
 
