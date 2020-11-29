@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { mockRepository } from 'utils/fixtures';
 import { AccountsService } from './accounts.service';
-import { Accounts } from './accounts.entity';
+import { Account } from './accounts.entity';
 
 describe('AccountsService', () => {
   let service: AccountsService;
@@ -12,7 +12,7 @@ describe('AccountsService', () => {
       providers: [
         AccountsService,
         {
-          provide: getRepositoryToken(Accounts),
+          provide: getRepositoryToken(Account),
           useValue: mockRepository,
         }
       ],

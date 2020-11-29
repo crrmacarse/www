@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { mockRepository } from 'utils/fixtures';
 import { AccountsController } from './accounts.controller';
 import { AccountsService } from './accounts.service';
-import { Accounts } from './accounts.entity';
+import { Account } from './accounts.entity';
 
 describe('AccountsController', () => {
   let controller: AccountsController;
@@ -14,7 +14,7 @@ describe('AccountsController', () => {
       providers: [
         AccountsService,
         {
-          provide: getRepositoryToken(Accounts),
+          provide: getRepositoryToken(Account),
           useValue: mockRepository,
         }
       ]
