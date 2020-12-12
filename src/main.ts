@@ -9,16 +9,17 @@ import { RATE_LIMIT_WINDOW_MS, RATE_LIMIT_MAX } from 'constants/default';
 import { loggerMiddleware } from 'middleware/logger.middleware';;
 import { HttpExceptionFilter } from 'exception/http-exception.filter';
 import { TimeoutInterceptor } from 'interceptors/timeout.interceptor';
+import { LoggingInterceptor } from 'interceptors/logging.interceptor';
+import { CustomLoggerService } from 'logger';
 import { AppConfigService } from 'app';
 import { MainModule } from './main.module';
-import { LoggingInterceptor } from 'interceptors/logging.interceptor';
 
-declare const module: any;
+declare const module;
 
 async function bootstrap() {
-  const app = await NestFactory.create(MainModule, {
-    logger: ['log', 'error', 'warn', 'debug', 'verbose'],
-  });
+  const app = await NestFactory.create(MainModule);
+
+  app.useLogger(app.get(CustomLoggerService));
 
   /**
    * Get app configurations
