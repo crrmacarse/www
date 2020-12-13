@@ -5,10 +5,11 @@ Using NestJS as framework.
 ## Setup
 
 ```bash
+# before proceeding, make sure to have .env file in the root folder(refer to given .env.example)
 $ npm install
 ```
 
-> Make sure to have an identical .env file with the given .env.example in the root folder
+> After succesfully starting up the application, A publicly available API documentation can be visited via `/docs` route
 
 ## Development
 
@@ -27,22 +28,26 @@ It is highly recommended to run testing on background
 $ npm run test:watch
 ```
 
-#### Documentation
+Lost?
 
 ```bash
-# Run built-in documentation
-npm run doc
+# run our built-in documentation
+$ npm run doc
 ```
 
-#### Debugging
+### Debugging
 
 ```bash
 # Run the application in debug mode
-npm run start:dev
+npm run start:debug
 ```
 
-> TIP: You could manually set `DEBUG=true` in your .env file. It'll stream ouputs in the console.
+> TIP: You could manually set `DEBUG=true` in your `.env` file for a minimal version of debugger. Stack traces can be found on the error log files.
 
+### Logging
+
+Log files can be found inside `logs` folder. File errors is created in a daily basis. You might need to do
+a clean-up once in a while.
 
 ## Production
 
