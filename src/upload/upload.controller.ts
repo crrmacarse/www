@@ -4,7 +4,7 @@ import {
     UseInterceptors, Param, Res,
 } from '@nestjs/common';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { ApiTags, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiConsumes, ApiBody, ApiOperation } from '@nestjs/swagger';
 import { diskStorage } from 'multer';
 import { FILE_UPLOAD_DESTINATION, FILE_UPLOAD_LIMITATIONS } from 'constants/file';
 import { formatFileName } from 'utils/file';
@@ -16,15 +16,20 @@ import { UploadFileDto, UploadFilesDto } from './upload.dto';
 export class UploadController {
     constructor(private uploadService: UploadService) {}
 
-    @Get('uploads/:imgPath')
-    getUploadedFile(@Param('imgPath') imgPath, @Res() res) {
-        return res.sendFile(imgPath, { root: FILE_UPLOAD_DESTINATION });
+    @Get('uploads/:filePath')
+    @ApiOperation({
+        description: 'Fetch files stored in server.'
+    })
+    getUploadedFile(@Param('filePath') filePath, @Res() res) {
+        return res.sendFile(filePath, { root: FILE_UPLOAD_DESTINATION });
     }
 
     @Post('upload')
     @ApiConsumes('multipart/form-data')
-    @ApiBody({
+    @ApiOperation({
         description: 'Upload a single file[MAX: 4mb, Accepts: jpg|jpeg|png|gif|pdf|docx]',
+    })
+    @ApiBody({
         type: UploadFileDto,
     })
     @UseInterceptors(FileInterceptor('file', {
@@ -46,8 +51,10 @@ export class UploadController {
 
     @Post('upload-files')
     @ApiConsumes('multipart/form-data')
-    @ApiBody({
+    @ApiOperation({
         description: 'Upload a multiple files[MAX: 4mb, Accepts: jpg|jpeg|png|gif|pdf|docx]',
+    })
+    @ApiBody({
         type: UploadFilesDto,
     })
     @UseInterceptors(FilesInterceptor('files', undefined, {
