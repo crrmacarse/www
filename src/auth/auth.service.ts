@@ -62,7 +62,6 @@ export class AuthService {
         return { message: 'Check your email address' };
     }
 
-
     async regenerateToken(refreshToken: string) {
         const { sub, profile } = this.verifyRefreshToken(refreshToken);
 
